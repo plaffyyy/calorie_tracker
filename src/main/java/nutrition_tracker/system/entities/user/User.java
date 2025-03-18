@@ -3,6 +3,7 @@ package nutrition_tracker.system.entities.user;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import nutrition_tracker.system.entities.meal.Meal;
 
 import java.util.List;
@@ -10,7 +11,16 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Data
+@NoArgsConstructor
 public final class User {
+    public User(String name, String email, int age, int weight, int height, Goal goal) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.weight = weight;
+        this.height = height;
+        this.goal = goal;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
