@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import nutrition_tracker.system.entities.meal.Meal;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -37,5 +40,8 @@ public final class User {
 
     @Enumerated(EnumType.STRING)
     private Goal goal;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Meal> meals;
 
 }
