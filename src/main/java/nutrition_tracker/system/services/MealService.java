@@ -46,4 +46,9 @@ public class MealService {
         ));
     }
 
+    @Transactional(readOnly = true)
+    public List<Meal> getAll() {
+        return mealRepository.findAll();
+    }
+
 }
