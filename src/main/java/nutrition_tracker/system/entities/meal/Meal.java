@@ -2,6 +2,7 @@ package nutrition_tracker.system.entities.meal;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import nutrition_tracker.system.entities.dish.Dish;
 import nutrition_tracker.system.entities.user.User;
 
@@ -11,7 +12,14 @@ import java.util.List;
 @Entity
 @Table(name = "meals")
 @Data
+@NoArgsConstructor
 public final class Meal {
+
+    public Meal(LocalDateTime mealDate, User user, List<Dish> dishes) {
+        this.mealDate = mealDate;
+        this.user = user;
+        this.dishes = dishes;
+    }
 
     @Id
     private Long id;
