@@ -16,6 +16,10 @@ public class DishService {
 
     private final DishRepository dishRepository;
 
+    /**
+     * создание блюда
+     * @param request dto для создания блюда
+     */
     public void create(CreateDishRequest request) {
         dishRepository.save(new Dish(
             request.name(),
@@ -26,6 +30,10 @@ public class DishService {
         ));
     }
 
+    /**
+     * получить все блюда, чтобы было проще ориентироваться
+     * @return List<Dish> все блюда
+     */
     @Transactional(readOnly = true)
     public List<Dish> getAll() {
         return dishRepository.findAll();

@@ -14,6 +14,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    /**
+     * создание пользователя
+     * @param request dto для создания пользователя
+     */
     @Transactional
     public void create(CreateUserRequest request) {
         userRepository.save(new User(
