@@ -1,10 +1,7 @@
 package nutrition_tracker.system.entities.user;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import nutrition_tracker.system.entities.meal.Meal;
 
@@ -19,10 +16,12 @@ public final class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Size(max = 255, message = "Name не должен быть больше 255 элементов")
     private String name;
 
     @Email
+    @NotNull
     @Size(max = 255, message = "Email не должен быть больше 255 элементов")
     private String email;
 
