@@ -25,11 +25,12 @@ public class ReportService {
     /**
      * Получение отчета по приему пищи за конкретный день
      * @param userId ID пользователя
-     * @param date Дата отчета
+     * @param reportDate Дата отчета
      * @return количество калорий и список приемов пищи за день
      */
     @Transactional(readOnly = true)
-    public DailyReportResponse getDailyReport(Long userId, LocalDate date) {
+    public DailyReportResponse getDailyReport(Long userId, String reportDate) {
+        LocalDate date = LocalDate.parse(reportDate);
         LocalDateTime startOfDay = date.atStartOfDay();
         LocalDateTime endOfDay = date.atTime(23, 59, 59);
         User user = userService.findById(userId);
@@ -45,5 +46,21 @@ public class ReportService {
         return new DailyReportResponse(totalCalories, meals, inDailyNorm);
     }
 
+    /**
+     * Получение истории питания пользователя за период
+     * @param userId ID пользователя
+     * @param reportDate дата из запроса
+     * @return Список отчетов за каждый день
+     */
+    @Transactional(readOnly = true)
+    public List<Meal> getMealHistory(Long userId, String reportDate) {
+        User user = userService.findById(userId);
 
+        LocalDate date = LocalDate.parse(reportDate);
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(23, 59, 59);
+
+
+        return mealRepository.findByUserAndMealDateBetween(user, startOfDay, endOfDay);
+    }
 }
