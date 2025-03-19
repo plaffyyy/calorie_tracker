@@ -34,7 +34,7 @@ public class UserService {
      * создание пользователя
      * @param request dto для создания пользователя
      */
-    public void create(CreateUserRequest request) {
+    public User create(CreateUserRequest request) {
         User user = new User(
                 request.name(),
                 request.email(),
@@ -44,7 +44,7 @@ public class UserService {
                 Goal.goalFromString(request.goal())
         );
         user.setCalorieNorm(calculateDailyCalorieNorm(user));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     /**
