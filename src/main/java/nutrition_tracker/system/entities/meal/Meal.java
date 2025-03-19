@@ -1,8 +1,9 @@
 package nutrition_tracker.system.entities.meal;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import nutrition_tracker.system.entities.dish.Dish;
 import nutrition_tracker.system.entities.user.User;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "meals")
-@Data
+@Setter @Getter
 @NoArgsConstructor
 public final class Meal {
 

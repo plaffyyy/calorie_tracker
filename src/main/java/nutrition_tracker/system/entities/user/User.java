@@ -1,16 +1,18 @@
 package nutrition_tracker.system.entities.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import nutrition_tracker.system.entities.meal.Meal;
 
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Data
+@Setter @Getter
 @NoArgsConstructor
 public final class User {
     public User(String name, String email, int age, int weight, int height, Goal goal) {
@@ -51,6 +53,7 @@ public final class User {
     private Goal goal;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Meal> meals;
 
     private int calorieNorm;

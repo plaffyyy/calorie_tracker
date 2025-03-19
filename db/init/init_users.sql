@@ -5,5 +5,6 @@ CREATE TABLE users (
        age INT CHECK (age >= 1 AND age <= 120),
        weight INT CHECK (weight >= 30 AND weight <= 230),
        height INT CHECK (height >= 100 AND height <= 230),
-       goal VARCHAR(50)
+       goal VARCHAR(50),
+       calorieNorm INT
 );

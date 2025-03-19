@@ -12,23 +12,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("report")
+@RequestMapping("/report")
 public class ReportController {
 
     private final ReportService reportService;
 
-    @Operation(summary = "Получить отчет за день")
+    @Operation(summary = "Получить отчет за день", description = "Сейчас работает используя body просто для теста")
     @GetMapping("/daily")
     public ResponseEntity<DailyReportResponse> getDailyReport(@RequestBody DailyReportRequest request) {
         return ResponseEntity.ok(reportService.getDailyReport(request.userId(), request.date()));
     }
 
-    @Operation(summary = "Получить историю питания за период")
+    @Operation(summary = "Получить историю питания за период", description = "Сейчас работает используя body просто для теста")
     @GetMapping("/history")
     public ResponseEntity<List<Meal>> getMealHistory(@RequestBody DailyReportRequest request) {
         return ResponseEntity.ok(reportService.getMealHistory(request.userId(), request.date()));
