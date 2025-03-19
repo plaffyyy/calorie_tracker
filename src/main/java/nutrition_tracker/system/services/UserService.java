@@ -14,20 +14,33 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+
+    private int calculateDailyCalorieNorm(User user) {
+        double bmr = 10 * user.getWeight() + 6.25 + user.getHeight() - 5 * user.getAge() + 5;
+
+        return switch (user.getGoal()) {
+            case WEIGHT_LOSS -> (int) (bmr * 1.2 - 500);
+            case MAINTENANCE -> (int) (bmr * 1.55);
+            case WEIGHT_GAIN -> (int) (bmr * 1.8 + 500);
+        };
+    }
+
     /**
      * создание пользователя
      * @param request dto для создания пользователя
      */
     @Transactional
     public void create(CreateUserRequest request) {
-        userRepository.save(new User(
-            request.name(),
-            request.email(),
-            request.age(),
-            request.weight(),
-            request.height(),
-            Goal.goalFromString(request.goal())
-        ));
+        User user = new User(
+                request.name(),
+                request.email(),
+                request.age(),
+                request.weight(),
+                request.height(),
+                Goal.goalFromString(request.goal())
+        );
+        user.setCalorieNorm(calculateDailyCalorieNorm(user));
+        userRepository.save(user);
     }
 
 }

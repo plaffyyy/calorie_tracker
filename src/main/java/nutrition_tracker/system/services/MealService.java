@@ -1,6 +1,7 @@
 package nutrition_tracker.system.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import nutrition_tracker.system.dto.meal.CreateMealRequest;
 import nutrition_tracker.system.entities.dish.Dish;
 import nutrition_tracker.system.entities.meal.Meal;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 @Transactional

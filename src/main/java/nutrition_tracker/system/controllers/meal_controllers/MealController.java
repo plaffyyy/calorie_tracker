@@ -7,8 +7,10 @@ import nutrition_tracker.system.entities.meal.Meal;
 import nutrition_tracker.system.services.MealService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class MealController {
 
     @Operation(summary = "Добавление приема пищи")
     @PostMapping("/create")
-    public ResponseEntity<String> addMeal(CreateMealRequest request) {
+    public ResponseEntity<String> addMeal(@RequestBody @Validated CreateMealRequest request) {
 
         mealService.create(request);
         return ResponseEntity.ok("Прием пищи создан");

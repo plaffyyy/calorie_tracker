@@ -53,4 +53,6 @@ public final class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Meal> meals;
 
+    private int calorieNorm;
+
 }
