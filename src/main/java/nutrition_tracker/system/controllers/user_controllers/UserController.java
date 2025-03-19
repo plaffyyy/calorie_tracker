@@ -3,13 +3,14 @@ package nutrition_tracker.system.controllers.user_controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import nutrition_tracker.system.dto.user.CreateUserRequest;
+import nutrition_tracker.system.entities.user.User;
 import nutrition_tracker.system.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,5 +26,11 @@ public class UserController {
         return ResponseEntity.ok("Пользователь успешно добавлен");
     }
 
+
+    @Operation(summary = "Получить всех пользователей")
+    @GetMapping("/take-all")
+    public ResponseEntity<List<User>> getMeals() {
+        return ResponseEntity.of(Optional.of(userService.getAll()));
+    }
 
 }

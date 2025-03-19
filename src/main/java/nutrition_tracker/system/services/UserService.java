@@ -4,12 +4,17 @@ import lombok.RequiredArgsConstructor;
 import nutrition_tracker.system.dto.user.CreateUserRequest;
 import nutrition_tracker.system.entities.user.Goal;
 import nutrition_tracker.system.entities.user.User;
+import nutrition_tracker.system.exceptions.UserIsNotFoundException;
 import nutrition_tracker.system.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -29,7 +34,6 @@ public class UserService {
      * создание пользователя
      * @param request dto для создания пользователя
      */
-    @Transactional
     public void create(CreateUserRequest request) {
         User user = new User(
                 request.name(),
@@ -41,6 +45,22 @@ public class UserService {
         );
         user.setCalorieNorm(calculateDailyCalorieNorm(user));
         userRepository.save(user);
+    }
+
+    /**
+     * найти пользователя по id
+     * @param userId id пользователя
+     * @return пользователь
+     * @throws UserIsNotFoundException в случае того, если нет пользователя по этому id
+     */
+    public User findById(Long userId) {
+        Optional<User> user = Optional.of(userRepository.getReferenceById(userId));
+        return user.orElseThrow(() -> new UserIsNotFoundException("Нет пользователя по этому id"));
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
 }
